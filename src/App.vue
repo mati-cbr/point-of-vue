@@ -11,9 +11,10 @@ import TheWelcome from './components/TheWelcome.vue'
       <HelloWorld msg="You did it!" />
     </div>
   </header>
-
+  <nav>
+  </nav>
   <main>
-    <TheWelcome />
+    <RouterView />
   </main>
 </template>
 
