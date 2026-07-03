@@ -14,7 +14,10 @@ import TheWelcome from './components/TheWelcome.vue'
   <nav>
   </nav>
   <main>
-    <RouterView />
+    <Suspense>
+      <RouterView />
+    </Suspense>
+
   </main>
 </template>
 
