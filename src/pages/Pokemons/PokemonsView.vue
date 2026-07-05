@@ -1,7 +1,20 @@
 <template>
   <h2>Pokedex</h2>
-  {{ pokemonsInfo }}
-
+  <v-container>
+    <v-row>
+      <v-col 
+        v-for="pokemon in pokemonsInfo" 
+        :key="pokemon.order"
+        cols="12"
+        sm="6"
+        lg="4"
+      >
+        <v-sheet class="pa-2">
+          {{ pokemon.name }}
+        </v-sheet>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -16,9 +29,9 @@ export default {
     ...mapState(usePokemonStore, ['currentResultsCount', 'currentResults', 'pokemonsInfo']),
   },
 
-  mounted() {
-    this.getAllPokemons();
-    this.getPokemonsInfo();
+  async mounted() {
+    await this.getAllPokemons();
+    await this.getPokemonsInfo();
   }
 }
 </script>

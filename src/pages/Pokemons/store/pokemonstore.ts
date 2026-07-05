@@ -1,4 +1,4 @@
-import type { IPokemon, PokemonResponsePaginated } from "@/pages/Pokemons/types/pokemon";
+import type { IPokemon, IPokemonBasicInfo, PokemonResponsePaginated } from "@/pages/Pokemons/types/pokemon";
 
 import type { IRequestParameters } from "@/shared/helpers/apiCallHelper";
 import apiCallHelper from "@/shared/helpers/apiCallHelper";
@@ -13,7 +13,7 @@ interface PokemonState {
         previousUrl: string | null;
         count: number;
     },
-    pokemonsInfo: Array<any>
+    pokemonsInfo: IPokemonBasicInfo[]
 }
 
 export const usePokemonStore = defineStore('pokemons', {
@@ -61,9 +61,14 @@ export const usePokemonStore = defineStore('pokemons', {
 
             this.allPokemonsPaginated.results.forEach(async (pokemon) => {
                 params.endpoint = `pokemon/${pokemon.name}`;
-                const resource = await apiCallHelper<any>(params as IRequestParameters);
+                const resource = await apiCallHelper<IPokemonBasicInfo>(params as IRequestParameters);
                 if (resource.value) {
-                    this.pokemonsInfo.push(resource.value.sprites);
+                    this.pokemonsInfo.push({
+                        name: resource.value.name,
+                        order: resource.value.order,
+                        types: resource.value.types,
+                        stats: resource.value.stats
+                    });
                 }
             })
         }

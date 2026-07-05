@@ -1,24 +1,25 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+  <v-app>
+    <header>
+      <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-  <nav>
-  </nav>
-  <main>
-    <Suspense>
-      <RouterView />
-    </Suspense>
+      <div class="wrapper">
+        <HelloWorld msg="You did it!" />
+      </div>
+    </header>
+    <nav>
+    </nav>
+    <main>
 
-  </main>
+      <Suspense>
+        <RouterView />
+      </Suspense>
+    </main>
+  </v-app>
 </template>
 
 <style scoped>

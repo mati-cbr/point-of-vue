@@ -1,11 +1,34 @@
+interface IType {
+    name: string,
+    url: string
+}
+
+interface ITypeSlotted {
+    slot: number,
+    type: IType
+}
+
+interface IStatOnly {
+    name: string,
+    url: string,
+}
+
+interface IStat {
+    base_stat: number,
+    effort: number,
+    stat: IStatOnly
+}
+
 export interface IPokemon {
     name: string,
     url: string
 }
 
-export interface IPokemonDetails {
+export interface IPokemonBasicInfo {
     name: string,
-    order: number
+    order: number,
+    types: ITypeSlotted[],
+    stats: IStat[]
 }
 
 export interface PokemonResponsePaginated {
