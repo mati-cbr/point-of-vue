@@ -12,7 +12,8 @@ interface PokemonState {
         nextUrl: string | null;
         previousUrl: string | null;
         count: number;
-    };
+    },
+    pokemonsInfo: Array<any>
 }
 
 export const usePokemonStore = defineStore('pokemons', {
@@ -23,12 +24,20 @@ export const usePokemonStore = defineStore('pokemons', {
             previousUrl: '',
             count: 0,
         },
+        pokemonsInfo: []
     }),
+    getters: {
+        nextUrl: (state) => state.allPokemonsPaginated.nextUrl,
+        previousUrl: (state) => state.allPokemonsPaginated.previousUrl,
+        currentResultsCount: (state) => state.allPokemonsPaginated.results.length,
+        currentResults: (state) => state.allPokemonsPaginated.results,
+        totalCount: (state) => state.allPokemonsPaginated.count
+    },
     actions: {
-        async getAllPokemons() {
+        async getAllPokemons(endpointUrl = 'pokemon') {
             const params = {
                 apiUrl: POKEAPI,
-                endpoint: "pokemon",
+                endpoint: endpointUrl,
                 method: "GET",
                 body: "",
             };
@@ -41,6 +50,22 @@ export const usePokemonStore = defineStore('pokemons', {
                 this.allPokemonsPaginated.previousUrl = resource.value.previous;
                 this.allPokemonsPaginated.count = resource.value.count;
             }
+        },
+        async getPokemonsInfo() {
+            let params = {
+                apiUrl: POKEAPI,
+                endpoint: '',
+                method: "GET",
+                body: "",
+            };
+
+            this.allPokemonsPaginated.results.forEach(async (pokemon) => {
+                params.endpoint = `pokemon/${pokemon.name}`;
+                const resource = await apiCallHelper<any>(params as IRequestParameters);
+                if (resource.value) {
+                    this.pokemonsInfo.push(resource.value.sprites);
+                }
+            })
         }
     }
 })

@@ -1,12 +1,24 @@
 <template>
   <h2>Pokedex</h2>
-  <article>Tutaj będzie lista pokemonów</article>
+  {{ pokemonsInfo }}
+
 </template>
 
-<script setup>
+<script>
 import { usePokemonStore } from './store/pokemonstore';
-const pokemonStore = usePokemonStore();
-await pokemonStore.getAllPokemons();
+import { mapActions, mapState } from 'pinia';
+export default {
+  methods: {
+    ...mapActions(usePokemonStore, ['getAllPokemons', 'getPokemonsInfo']),
+  },
 
-console.log(pokemonStore.$state.allPokemonsPaginated);
+  computed: {
+    ...mapState(usePokemonStore, ['currentResultsCount', 'currentResults', 'pokemonsInfo']),
+  },
+
+  mounted() {
+    this.getAllPokemons();
+    this.getPokemonsInfo();
+  }
+}
 </script>
