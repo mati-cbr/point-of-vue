@@ -3,6 +3,10 @@ interface IType {
     url: string
 }
 
+interface ISprites {
+    front_default: string
+}
+
 interface ITypeSlotted {
     slot: number,
     type: IType
@@ -28,7 +32,8 @@ export interface IPokemonBasicInfo {
     name: string,
     order: number,
     types: ITypeSlotted[],
-    stats: IStat[]
+    stats: IStat[],
+    sprites: ISprites,
 }
 
 export interface PokemonResponsePaginated {

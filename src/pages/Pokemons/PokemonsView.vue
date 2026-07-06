@@ -3,14 +3,21 @@
   <v-container>
     <v-row>
       <v-col 
-        v-for="pokemon in pokemonsInfo" 
+        v-for="pokemon in pokemonsInfo.sort((a, b) => a.order - b.order)" 
         :key="pokemon.order"
         cols="12"
         sm="6"
         lg="4"
       >
         <v-sheet class="pa-2">
-          {{ pokemon.name }}
+          <v-card
+            class="mx-auto">
+              <v-img
+                :src = pokemon.sprites.front_default
+              ></v-img>
+
+              <v-card-title class="capitalize">{{ pokemon.name }}</v-card-title>
+          </v-card>
         </v-sheet>
       </v-col>
     </v-row>
@@ -35,3 +42,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.capitalize {
+  text-transform: capitalize;
+}
+</style>

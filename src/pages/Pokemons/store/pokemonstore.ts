@@ -67,7 +67,8 @@ export const usePokemonStore = defineStore('pokemons', {
                         name: resource.value.name,
                         order: resource.value.order,
                         types: resource.value.types,
-                        stats: resource.value.stats
+                        stats: resource.value.stats,
+                        sprites: resource.value.sprites
                     });
                 }
             })
